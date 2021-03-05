@@ -14,11 +14,12 @@ Contient toutes les routes qui seront appelées par l'utilisateur. Il faut aussi
 
 *Appelle la function getAllUsers du controlleur userController*
 
-
 **Exemple app.js:**
 > const userRouter = require ('./routes/userRouter');
 >
 > app.user('/user', userRouter);
+
+Le client pourra donc faire une requête de type GET sur /user/allUser
 
 ### Controlleur
 Les controlleurs permettent de faire le lien entre route et model.

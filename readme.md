@@ -2,6 +2,7 @@
 
 ## Démarrer le projet
 > npm install
+> 
 > npm start
 
 ## Arborescence 

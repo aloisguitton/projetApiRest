@@ -16,6 +16,7 @@
     "sequelize": "^6.5.0",
     "sqlite3": "^5.0.2",
     "swagger-jsdoc": "6.0.0",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "axios": "^0.21.1"
   }
 }

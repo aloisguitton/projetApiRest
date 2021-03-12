@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/user', userRouter);
-app.use('/user', covidRouter);
+app.use('/covid', covidRouter);
 
 app.use(function(req, res, next) {
     next(createError(404));

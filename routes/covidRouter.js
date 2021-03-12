@@ -12,6 +12,6 @@ const covidCtrl = require('../controllers/covidController');
  *      description: Return all country
  *
  */
-router.get('/:country', covidCtrl.getAllCountryCovid);
+router.get('/allCountry', covidCtrl.getAllCountryCovid);
 
 module.exports = router;

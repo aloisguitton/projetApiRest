@@ -10,6 +10,24 @@ const userRouter = require('./routes/userRouter');
 const covidRouter = require('./routes/covidRouter');
 const newsRouter = require('./routes/newsRouter');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsDoc = require("swagger-jsdoc");
+
+const swaggerOptions = {
+    swaggerDefinition: {
+        info: {
+            version: "1.0.0",
+            title: "My super dashboards",
+            description: "Create some dashboard to understand your world !",
+            servers: ["http://localhost:3500"]
+        }
+    },
+    apis: ["routes/userRouter.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

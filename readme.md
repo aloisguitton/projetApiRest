@@ -27,5 +27,5 @@ Ils sont en charge de renvoyer la réponse à l'utilisateur. Dans "Services/Resp
 ### Model
 Le dossier model contient les fonctions qui traitent les donneés. On peut retourner des informations au controlleur avec *return* ou l'utilisateur de *promise*
 
-###models/db.js
+### models/db.js
 Contient les définissions de la base de données SQLite3. 

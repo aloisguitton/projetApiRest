@@ -8,6 +8,7 @@ const app = express();
 
 const userRouter = require('./routes/userRouter');
 const covidRouter = require('./routes/covidRouter');
+const newsRouter = require('./routes/newsRouter');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 
 app.use('/user', userRouter);
 app.use('/covid', covidRouter);
+app.use('news',newsRouter);
 
 app.use(function(req, res, next) {
     next(createError(404));

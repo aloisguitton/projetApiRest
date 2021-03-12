@@ -7,6 +7,7 @@ const upload = multer();
 const app = express();
 
 const userRouter = require('./routes/userRouter');
+const covidRouter = require('./routes/covidRouter');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/user', userRouter);
+app.use('/user', covidRouter);
 
 app.use(function(req, res, next) {
     next(createError(404));

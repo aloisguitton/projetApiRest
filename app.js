@@ -9,6 +9,8 @@ const app = express();
 const userRouter = require('./routes/userRouter');
 const covidRouter = require('./routes/covidRouter');
 const newsRouter = require('./routes/newsRouter');
+const weatherRouter = require('./routes/weatherRouter');
+
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -43,6 +45,7 @@ app.use((req, res, next) => {
 app.use('/user', userRouter);
 app.use('/covid', covidRouter);
 app.use('/news',newsRouter);
+app.use('/weather', weatherRouter);
 
 app.use(function(req, res, next) {
     next(createError(404));

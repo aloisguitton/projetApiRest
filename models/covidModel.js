@@ -1,13 +1,18 @@
-const {User} =  require("../models/db");
+const {Covid} =  require("../models/db");
 
-exports.getAllUsers = () => {
-    User.create({
-        fist_name: "user",
-        last_name: "lastname",
-        password: "pass",
-        email: "email",
-        address: "address",
-        postal_code: "35440",
-        city: "Bordeaux",
-    })
+exports.register = (country, id_user) => {
+    return new Promise((resolve, reject) => {
+        Covid.create({
+            country: country,
+            id_user: id_user
+        })
+            .then(() => {
+                console.log("lkdfuvidunviurniuvnird")
+                resolve()
+            })
+            .catch(error => {
+                console.log(error)
+                //reject()
+            })
+    });
 }

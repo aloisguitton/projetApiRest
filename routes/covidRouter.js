@@ -14,4 +14,10 @@ const covidCtrl = require('../controllers/covidController');
  */
 router.get('/allCountry', covidCtrl.getAllCountryCovid);
 
+
+router.post('/covidModuleRegister', covidCtrl.postCovid);
+
+
+router.get('/covidModules', covidCtrl.getCovid);
+
 module.exports = router;

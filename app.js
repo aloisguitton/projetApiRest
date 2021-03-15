@@ -24,7 +24,7 @@ const swaggerOptions = {
             servers: ["http://localhost:3500"]
         }
     },
-    apis: ["routes/userRouter.js", "routes/covidRouter.js", "routes/newsRouter.js"]
+    apis: ["routes/userRouter.js", "routes/covidRouter.js", "routes/newsRouter.js", "routes/weatherRouter.js"]
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

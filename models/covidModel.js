@@ -1,18 +1,28 @@
-const {Covid} =  require("../models/db");
+const db =  require("../models/db");
 
 exports.register = (country, id_user) => {
     return new Promise((resolve, reject) => {
-        Covid.create({
+        db.Covid.create({
             country: country,
             id_user: id_user
         })
             .then(() => {
-                console.log("lkdfuvidunviurniuvnird")
                 resolve()
             })
-            .catch(error => {
-                console.log(error)
-                //reject()
+            .catch(() => {
+                reject()
+            })
+    });
+}
+
+exports.delete = (country, id_user) => {
+    return new Promise((resolve, reject) => {
+        db.Covid.destroy({where: {id_user: id_user, country: country}})
+            .then(() => {
+                resolve()
+            })
+            .catch(() => {
+                reject()
             })
     });
 }

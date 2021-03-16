@@ -8,5 +8,6 @@ const weatherCtrl = require('../controllers/weatherController');
  */
 
 router.get('/getweather', weatherCtrl.getAllWeather);
+router.post('/setCities', weatherCtrl.setCities);
 
 module.exports = router;

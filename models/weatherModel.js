@@ -1,17 +1,20 @@
-const {Weather} =  require("../models/db");
+const db = require('../models/db');
 
-exports.register = (userID, cityName, unit, lang) => {
+
+exports.test = (userID, cityName, unit, lang, collectedData) => {
     return new Promise((resolve, reject) => {
-        Weather.create({
-            user_id: userID,
-            city_name: cityName,
-            units: unit,
-            language: lang,
+        db.Weather.create({
+            user_id: 1,
+            city_name: "France",
+            units: "metric",
+            language: "fr",
+            data: "{json}"
         })
             .then(() => {
                 resolve()
             })
-            .catch(() => {
+            .catch((e) => {
+                console.log(e)
                 reject()
             })
     })

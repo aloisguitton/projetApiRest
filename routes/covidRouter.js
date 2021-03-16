@@ -42,7 +42,7 @@ router.post('/covidModuleRegister', covidCtrl.postCovid);
  *         type: string
  *   responses:
  *    '200':
- *      description: Return all modules of the user
+ *      description: Return values to create user covid module
  *    '500':
  *      description: The module already exists
  *
@@ -60,7 +60,7 @@ router.get('/covidModules', covidCtrl.getCovid);
  *      description: Validate module has removed
  *
  */
-//router.del('/covidModules/:userId/:country', auth, covidCtrl.delCovid);
+//router.delete('/covidModules/:userId/:country', auth, covidCtrl.delCovid);
 router.delete('/covidModuleRemove/:country', covidCtrl.delCovid);
 
 module.exports = router;

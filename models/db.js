@@ -71,6 +71,23 @@ exports.Weather = sequelize.define("weather", {
     }
 });
 
+exports.News = sequelize.define("news", {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    id_user: {
+        type: Sequelize.INTEGER
+    },
+    country: {
+        type: Sequelize.STRING
+    },
+    category: {
+        type: Sequelize.STRING
+    },
+});
+
 this.User.sync({ force: true }).then(() => {
     userModel.register("user1", "lastname", "1a1dc91c907325c69271ddf0c944bc72", "test@gmail.fr", "2 rue de Mulhouse", "33200", "Bordeaux")
     //1a1dc91c907325c69271ddf0c944bc72 = md5("pass")
@@ -80,6 +97,11 @@ this.User.sync({ force: true }).then(() => {
 this.Covid.sync({ force: true }).then(() => {
     //covidModel.register("france", 1);
     console.log("Covid table created !")
+})
+
+this.News.sync({ force: true }).then(() => {
+    //newsModel.register("france", 1);
+    console.log("News table created !")
 })
 
 this.Weather.sync({ force: true }).then(() => {

@@ -3,8 +3,11 @@ const {Weather} =  require("../models/db");
 
 const response = require('../Services/Response');
 const userModel = require("../models/userModel");
+const weatherModel = require("../models/weatherModel");
 
 const APIKEY="e86938918e03ffa152e26008befa7ebd";
+
+const TOKEN = 0;
 
 //api.openweathermap.org/data/2.5/weather?q=London&units=metric&lang=fr&appid=e86938918e03ffa152e26008befa7ebd
 
@@ -29,16 +32,18 @@ exports.getAllWeather = (req, res) => {
 }
 
 exports.setCities = (req, res) => {
-    console.log(req.body);
-    response.success(res, {data: req.body});
+    req.body.cities.forEach(element => {
+        weatherModel.setCity(req.body.user, element.name,"metric","fr");
+    });
+    response.success(res, {data: req.body.data});
 }
 
 exports.saveCities = (req, res) => {
     //TODO : Fonction permettant d'enregistrer les villes récupéré avec @getCities en bdd
 }
 
-exports.removeCities = (req, res) => {
-
+exports.removeCity = (req, res) => {
+    res.send();
 }
 
 exports.deleteCities = (req, res) => {

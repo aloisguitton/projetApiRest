@@ -1,23 +1,26 @@
 const db = require('../models/db');
 
 
-exports.test = (userID, cityName, unit, lang, collectedData) => {
+exports.setCity = (userID, cityName, unit, lang) => {
     return new Promise((resolve, reject) => {
-        db.Weather.create({
-            user_id: 1,
-            city_name: "France",
-            units: "metric",
-            language: "fr",
-            data: "{json}"
-        })
-            .then(() => {
-                resolve()
-            })
-            .catch((e) => {
-                console.log(e)
-                reject()
-            })
-    })
 
+        db.Weather.create({
+            user_id: userID,
+            city_name: cityName,
+            units: unit,
+            language: lang
+        })
+    })
+}
+
+exports.removeCity = (userID, cityName) => {
+    return new Promise((resolve, reject) => {
+        db.Weather.destroy({
+            where:{
+                user_id: userID,
+                city_name: cityName
+            }
+        })
+    })
 }
 

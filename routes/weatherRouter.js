@@ -9,5 +9,6 @@ const weatherCtrl = require('../controllers/weatherController');
 
 router.get('/getweather', weatherCtrl.getAllWeather);
 router.post('/setCities', weatherCtrl.setCities);
+router.delete('/removeCities', weatherCtrl.removeCity);
 
 module.exports = router;

@@ -98,12 +98,12 @@ this.User.sync({ force: true }).then(() => {
 })
 
 this.Covid.sync({ force: true }).then(() => {
-    //covidModel.register("france", 1);
+    //covidModel.register("france",1);
     console.log("Covid table created !")
 })
 
 this.News.sync({ force: true }).then(() => {
-    //newsModel.register("france", 1);
+    newsModel.register(1,"fr","salut");
     console.log("News table created !")
 })
 

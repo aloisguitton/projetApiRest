@@ -38,12 +38,11 @@ exports.setCities = (req, res) => {
     response.success(res, {data: req.body.data});
 }
 
-exports.saveCities = (req, res) => {
-    //TODO : Fonction permettant d'enregistrer les villes récupéré avec @getCities en bdd
-}
-
 exports.removeCity = (req, res) => {
-    res.send();
+    req.body.cities.forEach(element => {
+        weatherModel.removeCity(req.body.user, element.name);
+    });
+    response.success(res, {data: req.body.data});
 }
 
 exports.deleteCities = (req, res) => {

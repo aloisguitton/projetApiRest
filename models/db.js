@@ -32,6 +32,9 @@ exports.User = sequelize.define("user", {
     city: {
         type: Sequelize.STRING
     },
+    token: {
+        type: Sequelize.STRING
+    },
 });
 
 exports.Covid = sequelize.define("covid", {

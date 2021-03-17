@@ -2,33 +2,44 @@ const axios = require('axios');
 const {Weather} =  require("../models/db");
 
 const response = require('../Services/Response');
-const userModel = require("../models/userModel");
 const weatherModel = require("../models/weatherModel");
 
 const APIKEY="e86938918e03ffa152e26008befa7ebd";
+const WEATHERDATA = [];
 
 const TOKEN = 0;
 
 //api.openweathermap.org/data/2.5/weather?q=London&units=metric&lang=fr&appid=e86938918e03ffa152e26008befa7ebd
 
-exports.getAllWeather = (req, res) => {
-
-    const config = {
+function configuration(city, key){
+    return {
         method: 'get',
-        url: 'http://api.openweathermap.org/data/2.5/weather?q='+req.query.city+'&units=metric&lang=fr&appid='+APIKEY,
+        url: 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&units=metric&lang=fr&appid='+key,
         headers: { }
     };
+}
 
-    axios(config)
-        .then(function (result) {
-            console.log(setDataFormat(result.data));
-            response.success(res,{data:result.data});
 
-            //envoie du json en base de donnée
+exports.getAllWeather = (req, res) => {
+    weatherModel.getCities()
+        .then(function(cities) {
+            cities.forEach(async (city) =>{
+
+                const config = {
+                    method: 'get',
+                    url: 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&units=metric&lang=fr&appid='+APIKEY,
+                    headers: { }
+                };
+
+                WEATHERDATA.push(await axios(config));
+
+            });
+            response.success(res, {data: WEATHERDATA});
         })
-        .catch(function (error) {
-            response.error(res,{error: error});
-        });
+        .catch((e) => {
+            console.log(e)
+            response.error(e)
+        })
 }
 
 exports.setCities = (req, res) => {
@@ -43,10 +54,6 @@ exports.removeCity = (req, res) => {
         weatherModel.removeCity(req.body.user, element.name);
     });
     response.success(res, {data: req.body.data});
-}
-
-exports.deleteCities = (req, res) => {
-
 }
 
 function getTime(timestamp){

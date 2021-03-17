@@ -17,7 +17,6 @@ exports.getAllCountryCovid = (req, res) => {
 
     axios(config)
         .then(function (responses) {
-            console.log(JSON.stringify(responses.data));
             response.success(res, {message:responses.data})
         })
         .catch(function (error) {
@@ -31,12 +30,11 @@ exports.postCovid = (req, res) => {
     const id_user = 1;//userModel.retrieveId(req.body.usertoken);
     const country = req.body.country;
 
-    db.Covid.findAll({where: {id_user: id_user, country: country}})
-        .then(covid => {
-            if (covid.length === 0) {
+    covidModel.checkExists(country, id_user)
+        .then(test => {
+            if (test) {
                 covidModel.register(country, id_user)
                     .then(() => {
-                        console.log()
                         response.success(res, {message: "Covid Module Add"})
                     })
                     .catch(error => {
@@ -72,7 +70,7 @@ exports.getCovid = (req, res) => {
     const date = new Date();
     const fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate()-1);
 
-    db.Covid.findAll({where: {id_user: user_id}})
+    covidModel.getUserModules(user_id)
         .then( async (modules) => {
 
             for(let i = 0; i < modules.length; i++){
@@ -84,7 +82,6 @@ exports.getCovid = (req, res) => {
             response.success(res, {message: modulesvalues})
         })
         .catch((error) => {
-            console.log(error)
             response.error(res);
         });
 
@@ -99,7 +96,6 @@ async function getCovid19Values(country, date){
 
         axios(config)
             .then(function (responses) {
-                //console.log(JSON.stringify(responses.data));
                 resolve(responses.data[0]);
             })
             .catch(function (error) {

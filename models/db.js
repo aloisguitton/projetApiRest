@@ -98,7 +98,6 @@ this.User.sync({ force: true }).then(() => {
 })
 
 this.Covid.sync({ force: true }).then(() => {
-    //covidModel.register("france",1);
     console.log("Covid table created !")
 })
 

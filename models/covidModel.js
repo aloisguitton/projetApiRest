@@ -1,10 +1,13 @@
 const db =  require("../models/db");
+const axios = require('axios');
 
 exports.register = (country, id_user) => {
     return new Promise((resolve, reject) => {
-        db.Covid.create({
-            country: country,
-            id_user: id_user
+        db.Covid.findOrCreate({
+            where: {
+                country: country,
+                id_user: id_user
+            }
         })
             .then(() => {
                 resolve()
@@ -27,31 +30,66 @@ exports.delete = (country, id_user) => {
     });
 }
 
-exports.checkExists = (country, id_user) => {
+exports.getCovid19Values = (country) => {
+    const date = new Date();
+    const fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate()-1);
     return new Promise((resolve, reject) => {
-        db.Covid.findAll({where: {id_user: id_user, country: country}}).
-            then(responses => {
-                if(responses.length === 0){
-                    resolve(true);
+        var config = {
+            method: 'get',
+            url: 'https://api.covid19api.com/live/country/'+country+'/status/confirmed/date/'+fulldate+'T00:00:00Z'
+        };
+
+        axios(config)
+            .then(function (responses) {
+                resolve(responses.data[0]);
+            })
+            .catch(function (error) {
+                reject();
+            });
+    });
+}
+
+exports.getUserModules = (id_user) => {
+    let modulesvalues = [];
+
+    return new Promise((resolve, reject) => {
+        db.Covid.findAll({where: {id_user: id_user}})
+            .then(async (responses) => {
+
+                for(let i = 0; i < responses.length; i++){
+                    let country = responses[i]["country"];
+
+                    let values = await this.getCovid19Values(country);
+                    modulesvalues.push(values);
                 }
-                else{
-                    resolve(false);
-                }
-        })
-            .catch(()=>{
+
+                resolve(modulesvalues);
+            })
+            .catch((error)=>{
+                console.log(error)
                 reject();
             })
     });
 }
 
-exports.getUserModules = (id_user) => {
+exports.getAllCountryCovid = () => {
     return new Promise((resolve, reject) => {
-        db.Covid.findAll({where: {id_user: id_user}}).
-            then(responses => {
-                resolve(responses);
+        var config = {
+            method: 'get',
+            url: 'https://api.covid19api.com/countries\n',
+            headers: {
+                'Content-Type': 'text/plain'
+            }
+        };
+
+        axios(config)
+            .then(function (responses) {
+                resolve(responses.data);
             })
-            .catch(()=>{
+            .catch(function (error) {
                 reject();
-            })
+            });
     });
 }
+
+

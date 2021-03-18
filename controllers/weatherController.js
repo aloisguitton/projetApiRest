@@ -15,6 +15,7 @@ exports.getAllWeather = (req, res) => {
         .then(function(cities) {
             weatherModel.getUserModules(cities,APIKEY).then(x=>{
                 console.log(x);
+                response.success(res, x)
             })
         })
         .catch((e) => {

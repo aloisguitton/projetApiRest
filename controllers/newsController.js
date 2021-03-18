@@ -1,21 +1,16 @@
 const response = require('../Services/Response');
 const axios = require('axios')
 const newsModel = require('../models/newsModel');
-const {News} =  require("../models/db");
 
-exports.test = (req, res) => {
-    response.success(res, "salut")
-}
-
+// https://newsapi.org/v2/top-headlines?country=fr&apiKey=8dbe1e1dec484dffa0d202c7d57b757a
+const apiKey = "8dbe1e1dec484dffa0d202c7d57b757a"
+const url = 'https://newsapi.org/v2/top-headlines?'
 // 100 appels maximun par jour
 //apiKey=8dbe1e1dec484dffa0d202c7d57b757a
 
-exports.registerCountry = (req, res) => {
-    console.log("salut")
+exports.register = (req, res) => {
     let data = req.body
-    console.log("iduser = "+data['idUser']+", country = "+data['country'])
-    //console.log(data)
-    newsModel.registercountry(data['idUser'], data['country'])
+    newsModel.register(data['idUser'], data['country'],data['category'])
         .then(() => {
             response.success(res)
         })
@@ -24,39 +19,89 @@ exports.registerCountry = (req, res) => {
         })
 }
 
-
-exports.testrequetebdd = (req, res) => {
-    console.log("controlleur testrequetebdd")
-    exports.connect = (req, res, next) => {
-        newsModel.findAllUser(1)
-            .then((result) => {
-                console.log(result);
-            })
-            .catch(() => {
-                response.error(res)
-            })
-    }
-
-
-  /*  let country = req.params.country;
-    axios.get('https://newsapi.org/v2/top-headlines?country='+country+'&apiKey=8dbe1e1dec484dffa0d202c7d57b757a')
-        .then(function (result) {
-            response.success(res, result.data);
+exports.requestBddApi = (req, res) => {
+    newsModel.findAllUser(req.params.user)
+        .then(async (result) => {
+            if (result != []) {
+                let responsesData = []
+                console.log("tableau non vide")
+                for (let i = 0; i < result.length; i++) {
+                    responsesData[i] = await requestAPI(result[i]);
+                }
+                response.success(res, responsesData)
+            } else {
+                response.success(res, result)
+            }
         })
-        .catch(function (error) {
-            response.error(res, {message: "error /news/country"});
+        .catch((error) => {
+            console.log("error = "+error)
+            response.error(res)
         })
-
-   */
 }
 
-exports.category = (req, res) => {
-    let category = req.params.category;
-    axios.get('https://newsapi.org/v2/top-headlines?category='+category+'&apiKey=8dbe1e1dec484dffa0d202c7d57b757a')
-        .then(function (result) {;
-            response.success(res, result.data);
+async function requestAPI(result) {
+    return new Promise((resolve, reject) => {
+        if (result.country && result.category) {
+            console.log("double")
+            axios.get(url + 'category=' + result.category +'&country=' +result.country +'&apiKey=' + apiKey)
+                .then(function (results) {
+                    let jsons = jsonTraitement(results.data.articles);
+                    resolve(jsons);
+                })
+                .catch(function (error) {
+                    console.log("error country + category = "+error)
+                    reject();
+                })
+        } else if (result.country) {
+            console.log("resultat country = "+result.country)
+            axios.get(url + 'country=' + result.country + '&apiKey=' + apiKey)
+                .then(function (results) {
+                    let jsons = jsonTraitement(results.data.articles);
+                    resolve(jsons);
+                })
+                .catch(function (error) {
+                    console.log("error country = "+error)
+                    reject();
+                })
+        }else if (result.category) {
+            console.log("resultat category = "+result.category)
+            axios.get(url + 'category=' + result.category + '&apiKey=' + apiKey)
+                .then(function (results) {
+                    let jsons = jsonTraitement(results.data.articles);
+                    resolve(jsons);
+                })
+                .catch(function (error) {
+                    console.log("error category = "+error)
+                    reject();
+                })
+        }  else {
+            console.log("else")
+            reject();
+        }
+    });
+}
+
+function jsonTraitement(results) {
+    let jsons = []
+    results.forEach(result => {
+        let json = {};
+        json.title = result.title
+        json.url = result.url
+        json.publishedAt = result.publishedAt
+        json.content = result.content
+        jsons.push(json);
+    })
+    return jsons;
+}
+
+exports.requetsOneUser = (req, res) => {
+    newsModel.findAllUser(req.params.user)
+        .then((result) => {
+            console.log(result)
+            response.success(res, result)
         })
-        .catch(function (error) {
-            response.error(res, {message: "error /news/category"});
+        .catch((error) => {
+            console.log("error = " + error)
+            response.error(res)
         })
 }

@@ -4,6 +4,7 @@ const sequelize = new Sequelize("sqlite:database.db");
 const userModel = require('../models/userModel')
 const covidModel = require('../models/covidModel')
 const weatherModel = require('../models/weatherModel')
+const newsModel = require('../models/newsModel')
 
 exports.User = sequelize.define("user", {
     id: {
@@ -99,7 +100,7 @@ this.Covid.sync({ force: true }).then(() => {
 })
 
 this.News.sync({ force: true }).then(() => {
-    newsModel.register(1,"fr","salut");
+  //  newsModel.register(1,"fr","technology");
     console.log("News table created !")
 })
 

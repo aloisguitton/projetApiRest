@@ -68,9 +68,6 @@ exports.Weather = sequelize.define("weather", {
     },
     language: {
         type: Sequelize.STRING
-    },
-    data: {
-        type: Sequelize.STRING
     }
 });
 
@@ -107,7 +104,6 @@ this.News.sync({ force: true }).then(() => {
 })
 
 this.Weather.sync({ force: true }).then(() => {
-    weatherModel.test(1, "France","metric","fr","{json}");
-
+    //weatherModel.createWeatherTable(1, "France","metric","fr","{json}");
     console.log("Weather table created !")
 })

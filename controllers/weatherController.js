@@ -1,4 +1,3 @@
-const axios = require('axios');
 const {Weather} =  require("../models/db");
 
 const response = require('../Services/Response');
@@ -11,30 +10,12 @@ const TOKEN = 0;
 
 //api.openweathermap.org/data/2.5/weather?q=London&units=metric&lang=fr&appid=e86938918e03ffa152e26008befa7ebd
 
-function configuration(city, key){
-    return {
-        method: 'get',
-        url: 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&units=metric&lang=fr&appid='+key,
-        headers: { }
-    };
-}
-
-
 exports.getAllWeather = (req, res) => {
-    weatherModel.getCities()
+    weatherModel.getCities(1)
         .then(function(cities) {
-            cities.forEach(async (city) =>{
-
-                const config = {
-                    method: 'get',
-                    url: 'http://api.openweathermap.org/data/2.5/weather?q='+city+'&units=metric&lang=fr&appid='+APIKEY,
-                    headers: { }
-                };
-
-                WEATHERDATA.push(await axios(config));
-
-            });
-            response.success(res, {data: WEATHERDATA});
+            weatherModel.getUserModules(cities,APIKEY).then(x=>{
+                console.log(x);
+            })
         })
         .catch((e) => {
             console.log(e)

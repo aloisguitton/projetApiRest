@@ -20,7 +20,7 @@ exports.register = (req, res) => {
 }
 
 exports.requestBddApi = (req, res) => {
-    newsModel.findAllUser(req.params.user)
+    newsModel.findAllUser(req.query.user)
         .then(async (result) => {
             if (result != []) {
                 let responsesData = []
@@ -95,7 +95,7 @@ function jsonTraitement(results) {
 }
 
 exports.requetsOneUser = (req, res) => {
-    newsModel.findAllUser(req.params.user)
+    newsModel.findAllUser(req.query.user)
         .then((result) => {
             console.log(result)
             response.success(res, result)

@@ -7,8 +7,10 @@ const newsCtrl = require('../controllers/newsController');
 
 /**
  * @swagger
- * /news/bddapi/:user :
+ * /news/bddapi/ :
  *  get:
+ *   tags:
+ *      - news
  *   description: Get request API one user
  *   responses:
  *    '200':
@@ -21,14 +23,17 @@ const newsCtrl = require('../controllers/newsController');
  *   parameters:
  *    - in: query
  *      name: user
- *      type: int
+ *      type: integer
+ *      required: true
  *      description: "id user"
  */
-router.get('/bddapi/:user', newsCtrl.requestBddApi);
+router.get('/bddapi/', newsCtrl.requestBddApi);
 /**
  * @swagger
- * /news/requetsoneuser/:user :
+ * /news/requetsoneuser/ :
  *  get:
+ *   tags:
+ *      - news
  *   description: Get  BDD one user
  *   responses:
  *    '200':
@@ -41,14 +46,16 @@ router.get('/bddapi/:user', newsCtrl.requestBddApi);
  *   parameters:
  *    - in: query
  *      name: user
- *      type: int
+ *      type: integer
  *      description: "id user"
  */
-router.get('/requetsoneuser/:user', newsCtrl.requetsOneUser);
+router.get('/requetsoneuser/', newsCtrl.requetsOneUser);
 /**
  * @swagger
  * /news/register:
  *  post:
+ *   tags:
+ *      - news
  *   description: |
  *      code of the country you want to get headlines for. Possible options :
  *      ae, ar, at ,au ,be ,bg ,br ,ca ,ch ,cn ,co ,cu ,cz ,de ,eg ,fr ,gb ,gr ,hk ,hu ,id ,ie ,il ,in ,it ,jp ,kr ,lt ,lv ,ma ,mx ,my ,ng ,nl ,no ,nz ,ph ,pl ,pt ,ro ,rs ,ru ,sa ,se ,sg ,si ,sk ,th ,tr ,tw ,ua ,us ,ve ,za
@@ -69,36 +76,14 @@ router.get('/requetsoneuser/:user', newsCtrl.requetsOneUser);
  *        - country
  *        - category
  *       properties:
- *        id_user:
+ *        idUser:
  *         type: integer
  *        country:
  *         type: string
+ *         example: fr
  *        category:
  *         type: string
- *    - in: body
- *      name: country
- *      schema:
- *       type: object
- *       required:
- *        - id_user
- *        - country
- *       properties:
- *        id_user:
- *         type: integer
- *        country:
- *         type: string
- *    - in: body
- *      name: category
- *      schema:
- *       type: object
- *       required:
- *        - id_user
- *        - category
- *       properties:
- *        id_user:
- *         type: integer
- *        category:
- *         type: string
+ *         example: technology
  */
 router.post('/register', newsCtrl.register);
 

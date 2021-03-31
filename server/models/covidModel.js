@@ -84,7 +84,6 @@ exports.getAllCountryCovid = () => {
 
         axios(config)
             .then(function (responses) {
-                console.log(responses.data)
                 resolve(responses.data);
             })
             .catch(function (error) {

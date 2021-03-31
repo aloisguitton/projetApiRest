@@ -1,5 +1,5 @@
 const sequelize = require("sequelize");
-const {User, Weather} =  require("../models/db");
+const {User, Weather} =  require("./db");
 const jwt = require('jsonwebtoken');
 const cryptoRandomString = require('crypto-random-string');
 const CryptoJS = require('crypto-js');

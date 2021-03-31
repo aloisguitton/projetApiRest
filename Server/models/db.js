@@ -1,10 +1,10 @@
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize("sqlite:database.db");
 
-const userModel = require('../models/userModel')
-const covidModel = require('../models/covidModel')
-const weatherModel = require('../models/weatherModel')
-const newsModel = require('../models/newsModel')
+const userModel = require('./userModel')
+const covidModel = require('./covidModel')
+const weatherModel = require('./weatherModel')
+const newsModel = require('./newsModel')
 
 exports.User = sequelize.define("user", {
     id: {

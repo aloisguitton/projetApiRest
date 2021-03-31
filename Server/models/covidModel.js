@@ -1,4 +1,4 @@
-const db =  require("../models/db");
+const db =  require("./db");
 const axios = require('axios');
 
 exports.register = (country, id_user) => {

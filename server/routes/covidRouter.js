@@ -73,7 +73,7 @@ router.post('/covidModuleRegister', auth, covidCtrl.postCovid);
  *      description: The module already exists
  *
  */
-router.get('/covidModules/:usertoken', auth, covidCtrl.getCovid);
+router.get('/covidModules', auth, covidCtrl.getCovid);
 
 /**
  * @swagger

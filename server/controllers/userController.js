@@ -34,9 +34,7 @@ exports.connect = (req, res, next) => {
 
 exports.parameters = async (req, res) => {
     let data = {}
-    console.log(req.query)
-    console.log(await userModel.retrieveId(req.query['userId']))
-    let weather = await userModel.weatherParameters(await userModel.retrieveId(req.query['userId']))
-    data.weather = weather
+    data.weather = await userModel.weatherParameters(await userModel.retrieveId(req.user))
+    data.covid = await userModel.covidParameters(await userModel.retrieveId(req.user))
     response.success(res, data)
 }

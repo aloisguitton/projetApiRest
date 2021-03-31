@@ -1,5 +1,5 @@
 const sequelize = require("sequelize");
-const {User, Weather} =  require("../models/db");
+const {User, Weather, Covid} =  require("../models/db");
 const jwt = require('jsonwebtoken');
 const cryptoRandomString = require('crypto-random-string');
 const CryptoJS = require('crypto-js');
@@ -68,7 +68,6 @@ exports.retrieveId = (token) => {
             ],
             where: {token: token}})
             .then((res) => {
-                console.log(res)
                 resolve(res[0]['id'])
             })
             .catch((err) => {
@@ -99,6 +98,27 @@ exports.weatherParameters = (user) => {
                         'language': data['language'],
                     }
                 }
+                resolve(result)
+            })
+            .catch((err) => {
+                reject()
+            })
+    })
+}
+
+exports.covidParameters = (user) => {
+    console.log(user)
+    return new Promise((resolve, reject) => {
+        Covid.findAll({
+            attributes: [
+                'country'
+            ],
+            where: {id_user: user}})
+            .then((res) => {
+                let result = [];
+                res.forEach((r) => {
+                    result.push(r['dataValues']['country'])
+                })
                 resolve(result)
             })
             .catch((err) => {

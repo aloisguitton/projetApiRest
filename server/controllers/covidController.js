@@ -14,7 +14,7 @@ exports.getAllCountryCovid = (req, res) => {
 
 exports.postCovid = (req, res) => {
 
-    const id_user = userModel.retrieveId(req.body.usertoken);
+    const id_user = userModel.retrieveId(req.user);
     const country = req.body.country;
 
     covidModel.register(country, id_user)
@@ -39,10 +39,10 @@ exports.delCovid = (req, res) => {
         })
 }
 
-exports.getCovid = (req, res) => {
-    const id_user = userModel.retrieveId(req.query.usertoken);
+exports.getCovid = async (req, res) => {
+    const id_user = await userModel.retrieveId(req.user);
 
-    covidModel.getUserModules(user_id)
+    covidModel.getUserModules(id_user)
         .then( modulesvalues => {
             response.success(res, {message: modulesvalues})
         })

@@ -26,20 +26,26 @@ router.get('/allCountry', covidCtrl.getAllCountryCovid);
  *   description: Register a user covid module
  *
  *   parameters:
- *     - in: body
- *       name : addCovidModule
- *       description : User module to register
- *       schema :
- *         type: object
+ *     - in: headers
+ *       name: User Token
+ *       description: User token for authentication
+ *       schema:
  *         required:
  *          - usertoken
+ *         properties:
+ *           usertoken:
+ *             type: string
+ *
+ *     - in: body
+ *       name : Country
+ *       description : Country for User covid module to register
+ *       schema :
+ *         required:
  *          - country
  *         properties:
- *          usertoken:
- *           type: string
  *          country:
  *           type: string
- *           example: "south-africa"
+ *           example: "france"
  *
  *   responses:
  *    '200':
@@ -52,20 +58,23 @@ router.post('/covidModuleRegister', auth, covidCtrl.postCovid);
 
 /**
  * @swagger
- * /covidModules/:usertoken :
+ * /covidModules:
  *  get:
  *   description: Get modules of the user
  *   tags:
  *      - covid
- *   parameters :
- *     - in: query
- *       description : User token
- *       name : userToken
- *       required:
- *        - usertoken
- *       properties:
- *        usertoken:
- *         type: string
+ *
+ *   parameters:
+ *     - in: headers
+ *       name: User Token
+ *       description: User token for authentication
+ *       schema:
+ *         required:
+ *          - usertoken
+ *         properties:
+ *           usertoken:
+ *             type: string
+ *
  *   responses:
  *    '200':
  *      description: Return values to create user covid module
@@ -77,28 +86,37 @@ router.get('/covidModules', auth, covidCtrl.getCovid);
 
 /**
  * @swagger
- * /covidModules/:usertoken/:country :
+ * /covidModulesDelete:
  *  delete:
  *   description: Remove a user covid module
  *   tags:
  *      - covid
- *   parameters :
- *     - in: query
+ *
+ *   parameters:
+ *     - in: headers
+ *       name: User Token
+ *       description: User token for authentication
+ *       schema:
+ *         required:
+ *          - usertoken
+ *         properties:
+ *           usertoken:
+ *             type: string
+ *
+ *     - in: body
  *       description : User module to delete
  *       required:
- *        - usertoken
  *        - country
  *       properties:
- *        usertoken:
- *         type: string
  *        country:
  *         type: string
- *         example: "south-africa"
+ *         example: "france"
+ *
  *   responses:
  *    '200':
  *      description: Validate module has removed
  *
  */
-router.delete('/covidModules', auth, covidCtrl.delCovid);
+router.delete('/covidModulesDelete', auth, covidCtrl.delCovid);
 
 module.exports = router;

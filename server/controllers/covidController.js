@@ -41,7 +41,7 @@ exports.delCovid = async (req, res) => {
 
 exports.getCovid = async (req, res) => {
     const id_user = await userModel.retrieveId(req.user);
-
+    console.log(id_user)
     covidModel.getUserModules(id_user)
         .then( modulesvalues => {
             response.success(res, {message: modulesvalues})

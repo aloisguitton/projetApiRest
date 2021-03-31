@@ -13,7 +13,6 @@ exports.register = (country, id_user) => {
                 resolve()
             })
             .catch((e) => {
-                console.log(e)
                 reject()
             })
     });

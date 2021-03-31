@@ -48,7 +48,6 @@ exports.getUserModules = (cities, key) => {
 }
 
 exports.setCity = (userID, cityName, unit, lang) => {
-    console.log(cityName)
     return new Promise((resolve, reject) => {
         db.Weather.create({
             user_id: userID,
@@ -60,8 +59,6 @@ exports.setCity = (userID, cityName, unit, lang) => {
                 resolve()
             })
             .catch((c) => {
-                console.log("----------------------------------")
-                console.log(c)
                 reject()
             })
     })

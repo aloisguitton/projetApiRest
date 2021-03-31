@@ -21,7 +21,6 @@ exports.postCovid = async (req, res) => {
             response.success(res)
         })
         .catch(error => {
-            console.log(error)
             response.error(res)
         });
 }

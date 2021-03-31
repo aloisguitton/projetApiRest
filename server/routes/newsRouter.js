@@ -1,13 +1,14 @@
 let express = require('express');
 let router = express.Router();
 const newsCtrl = require('../controllers/newsController');
+const auth = require('../middleware/auth')
 
 // Attention
 // la clé de l'api est limité à 100 requete par jour
 
 /**
  * @swagger
- * /news/bddapi/ :
+ * /news/bddapi :
  *  get:
  *   tags:
  *      - news
@@ -27,7 +28,7 @@ const newsCtrl = require('../controllers/newsController');
  *      required: true
  *      description: "id user"
  */
-router.get('/bddapi/', newsCtrl.requestBddApi);
+router.get('/bddapi', auth, newsCtrl.requestBddApi);
 /**
  * @swagger
  * /news/requetsoneuser/ :
@@ -49,7 +50,7 @@ router.get('/bddapi/', newsCtrl.requestBddApi);
  *      type: integer
  *      description: "id user"
  */
-router.get('/requetsoneuser/', newsCtrl.requetsOneUser);
+router.get('/requetsoneuser', auth, newsCtrl.requetsOneUser);
 /**
  * @swagger
  * /news/register:
@@ -85,6 +86,6 @@ router.get('/requetsoneuser/', newsCtrl.requetsOneUser);
  *         type: string
  *         example: technology
  */
-router.post('/register', newsCtrl.register);
+router.post('/register', auth, newsCtrl.register);
 
 module.exports = router;

@@ -5,7 +5,7 @@ const userModel = require("../models/userModel");
 exports.getAllCountryCovid = (req, res) => {
     covidModel.getAllCountryCovid()
         .then(function (responses) {
-            response.success(res, {message:responses.data})
+            response.success(res, {message:responses})
         })
         .catch(function (error) {
             response.error(res, {error:error})
@@ -17,6 +17,7 @@ exports.postCovid = (req, res) => {
     const id_user = 1;//userModel.retrieveId(req.body.usertoken);
     const country = req.body.country;
 
+    console.log(req.user)
     covidModel.register(country, id_user)
         .then(() => {
             response.success(res)

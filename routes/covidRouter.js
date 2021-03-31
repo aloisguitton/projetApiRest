@@ -5,7 +5,7 @@ const covidCtrl = require('../controllers/covidController');
 
 /**
  * @swagger
- * /allCountry :
+ * /covid/allCountry :
  *  get:
  *   description: Get all country get by covid19api.com
  *   responses:
@@ -20,6 +20,18 @@ router.get('/allCountry', covidCtrl.getAllCountryCovid);
  * /covidModuleRegister :
  *  post:
  *   description: Register a user covid module
+ *   parameters :
+ *     - in: body
+ *       description : User module to register
+ *       required:
+ *        - usertoken
+ *        - country
+ *       properties:
+ *        usertoken:
+ *         type: string
+ *        country:
+ *         type: string
+ *         example: "south-africa"
  *   responses:
  *    '200':
  *      description: Validate that module has added
@@ -27,18 +39,21 @@ router.get('/allCountry', covidCtrl.getAllCountryCovid);
  *      description: The module already exists
  *
  */
-//router.post('/covidModuleRegister', auth, covidCtrl.postCovid);
-router.post('/covidModuleRegister', covidCtrl.postCovid);
+router.post('/covidModuleRegister', auth, covidCtrl.postCovid);
 
 /**
  * @swagger
- * /covidModules :
+ * /covidModules/:usertoken :
  *  get:
  *   description: Get modules of the user
- *   parameters:
- *     - in:
- *       name: userToken
- *       schema:
+ *   parameters :
+ *     - in: query
+ *       description : User token
+ *       name : userToken
+ *       required:
+ *        - usertoken
+ *       properties:
+ *        usertoken:
  *         type: string
  *   responses:
  *    '200':
@@ -47,20 +62,30 @@ router.post('/covidModuleRegister', covidCtrl.postCovid);
  *      description: The module already exists
  *
  */
-//router.get('/covidModules/:userId', auth, covidCtrl.getCovid);
-router.get('/covidModules', covidCtrl.getCovid);
+router.get('/covidModules/:usertoken', auth, covidCtrl.getCovid);
 
 /**
  * @swagger
- * /covidModules :
+ * /covidModules/:usertoken/:country :
  *  delete:
  *   description: Remove a user covid module
+ *   parameters :
+ *     - in: query
+ *       description : User module to delete
+ *       required:
+ *        - usertoken
+ *        - country
+ *       properties:
+ *        usertoken:
+ *         type: string
+ *        country:
+ *         type: string
+ *         example: "south-africa"
  *   responses:
  *    '200':
  *      description: Validate module has removed
  *
  */
-//router.delete('/covidModules/:userId/:country', auth, covidCtrl.delCovid);
-router.delete('/covidModuleRemove/:country', covidCtrl.delCovid);
+router.delete('/covidModules/:usertoken/:country', auth, covidCtrl.delCovid);
 
 module.exports = router;

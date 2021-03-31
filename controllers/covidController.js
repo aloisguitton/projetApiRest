@@ -5,7 +5,7 @@ const userModel = require("../models/userModel");
 exports.getAllCountryCovid = (req, res) => {
     covidModel.getAllCountryCovid()
         .then(function (responses) {
-            response.success(res, {message:responses.data})
+            response.success(res, {message:responses})
         })
         .catch(function (error) {
             response.error(res, {error:error})
@@ -14,7 +14,7 @@ exports.getAllCountryCovid = (req, res) => {
 
 exports.postCovid = (req, res) => {
 
-    const id_user = 1;//userModel.retrieveId(req.body.usertoken);
+    const id_user = userModel.retrieveId(req.body.usertoken);
     const country = req.body.country;
 
     covidModel.register(country, id_user)
@@ -27,7 +27,7 @@ exports.postCovid = (req, res) => {
 }
 
 exports.delCovid = (req, res) => {
-    const id_user = 1; //userModel.retrieveId(req.query["token"]);
+    const id_user = userModel.retrieveId(req.query.usertoken);
     const country = req.params.country;
 
     covidModel.delete(country, id_user)
@@ -40,7 +40,7 @@ exports.delCovid = (req, res) => {
 }
 
 exports.getCovid = (req, res) => {
-    const user_id = 1;  //userModel.retrieveId(req.query["token"]);
+    const id_user = userModel.retrieveId(req.query.usertoken);
 
     covidModel.getUserModules(user_id)
         .then( modulesvalues => {

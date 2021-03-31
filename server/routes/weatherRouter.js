@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 const weatherCtrl = require('../controllers/weatherController');
+const auth = require('../middleware/auth')
 
 /**
  * @swagger
@@ -23,7 +24,7 @@ const weatherCtrl = require('../controllers/weatherController');
  *       type: integer
  *       example: 1
  */
-router.get('/getweather', weatherCtrl.getAllWeather);
+router.get('/getweather', auth, weatherCtrl.getAllWeather);
 
 /**
  * @swagger
@@ -56,7 +57,7 @@ router.get('/getweather', weatherCtrl.getAllWeather);
  *            type: string
  *            example: "Bordeaux"
  */
-router.post('/setCities', weatherCtrl.setCities);
+router.post('/setCities', auth, weatherCtrl.setCities);
 
 /**
  * @swagger
@@ -89,6 +90,6 @@ router.post('/setCities', weatherCtrl.setCities);
  *            type: string
  *            example: "Bordeaux"
  */
-router.delete('/removeCities', weatherCtrl.removeCity);
+router.delete('/removeCities', auth, weatherCtrl.removeCity);
 
 module.exports = router;

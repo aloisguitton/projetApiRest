@@ -89,7 +89,7 @@ exports.News = sequelize.define("news", {
     },
 });
 
-//this.User.sync({ force: true }).then(() => {
+// this.User.sync({ force: true }).then(() => {
 this.User.sync().then(() => {
     userModel.register("user1", "lastname", "1a1dc91c907325c69271ddf0c944bc72", "test@gmail.fr", "2 rue de Mulhouse", "33200", "Bordeaux")
     //1a1dc91c907325c69271ddf0c944bc72 = md5("pass")

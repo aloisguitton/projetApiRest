@@ -12,9 +12,8 @@ exports.getAllCountryCovid = (req, res) => {
         });
 }
 
-exports.postCovid = (req, res) => {
-
-    const id_user = userModel.retrieveId(req.user);
+exports.postCovid = async (req, res) => {
+    const id_user = await userModel.retrieveId(req.user);
     const country = req.body.country;
 
     covidModel.register(country, id_user)
@@ -22,6 +21,7 @@ exports.postCovid = (req, res) => {
             response.success(res)
         })
         .catch(error => {
+            console.log(error)
             response.error(res)
         });
 }
@@ -30,8 +30,6 @@ exports.delCovid = async (req, res) => {
     const id_user = await userModel.retrieveId(req.user);
     const country = req.body.country;
 
-    console.log(country)
-    console.log(id_user)
     covidModel.delete(country, id_user)
         .then(()=>{
             response.success(res);

@@ -12,7 +12,8 @@ exports.register = (country, id_user) => {
             .then(() => {
                 resolve()
             })
-            .catch(() => {
+            .catch((e) => {
+                console.log(e)
                 reject()
             })
     });
@@ -55,7 +56,6 @@ exports.getUserModules = (id_user) => {
     return new Promise((resolve, reject) => {
         db.Covid.findAll({where: {id_user: id_user}})
             .then(async (responses) => {
-                console.log(responses)
                 for(let i = 0; i < responses.length; i++){
                     let country = responses[i]["country"];
 
@@ -66,7 +66,6 @@ exports.getUserModules = (id_user) => {
                 resolve(modulesvalues);
             })
             .catch((error)=>{
-                console.log(error)
                 reject();
             })
     });

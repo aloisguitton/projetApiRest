@@ -7,6 +7,8 @@ const covidCtrl = require('../controllers/covidController');
  * @swagger
  * /covid/allCountry :
  *  get:
+ *   tags:
+ *      - covid
  *   description: Get all country get by covid19api.com
  *   responses:
  *    '200':
@@ -19,19 +21,26 @@ router.get('/allCountry', covidCtrl.getAllCountryCovid);
  * @swagger
  * /covidModuleRegister :
  *  post:
+ *   tags:
+ *      - covid
  *   description: Register a user covid module
- *   parameters :
+ *
+ *   parameters:
  *     - in: body
+ *       name : addCovidModule
  *       description : User module to register
- *       required:
- *        - usertoken
- *        - country
- *       properties:
- *        usertoken:
- *         type: string
- *        country:
- *         type: string
- *         example: "south-africa"
+ *       schema :
+ *         type: object
+ *         required:
+ *          - usertoken
+ *          - country
+ *         properties:
+ *          usertoken:
+ *           type: string
+ *          country:
+ *           type: string
+ *           example: "south-africa"
+ *
  *   responses:
  *    '200':
  *      description: Validate that module has added
@@ -46,6 +55,8 @@ router.post('/covidModuleRegister', auth, covidCtrl.postCovid);
  * /covidModules/:usertoken :
  *  get:
  *   description: Get modules of the user
+ *   tags:
+ *      - covid
  *   parameters :
  *     - in: query
  *       description : User token
@@ -69,6 +80,8 @@ router.get('/covidModules/:usertoken', auth, covidCtrl.getCovid);
  * /covidModules/:usertoken/:country :
  *  delete:
  *   description: Remove a user covid module
+ *   tags:
+ *      - covid
  *   parameters :
  *     - in: query
  *       description : User module to delete

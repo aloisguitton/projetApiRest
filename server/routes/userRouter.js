@@ -8,6 +8,8 @@ const auth = require('../middleware/auth')
  * @swagger
  * /user/register:
  *  post:
+ *   tags:
+ *    - user
  *   description: Get all users
  *   responses:
  *    '200':
@@ -49,6 +51,8 @@ router.post('/register', userCtrl.register)
  * @swagger
  * /user/connect:
  *  post:
+ *   tags:
+ *    - user
  *   description: Get all users
  *   responses:
  *    '200':
@@ -80,6 +84,8 @@ router.post('/connect', userCtrl.connect)
  * @swagger
  * /user/parameters:
  *  get:
+ *   tags:
+ *    - user
  *   description: Get all users
  *   responses:
  *    '200':

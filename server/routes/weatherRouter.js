@@ -12,17 +12,17 @@ const auth = require('../middleware/auth')
  *   description: This request get all the country which the user are looking for it and return the weather of each country
  *   responses:
  *    '200':
- *      description: Returns the temperature of the cities the user wants to follow
+ *      description: Returns the temperature of the cities the user wants to follow. The response formated in a json
  *    '500':
  *      description: An error occured
  *
  *   parameters:
  *    - in: query
  *      name: user
- *      description: Numeric id of the user to get his weather
+ *      description: Token id of the user
  *      schema:
- *       type: integer
- *       example: 1
+ *       type: string
+ *       example: "34578364586"
  */
 router.get('/getweather', auth, weatherCtrl.getAllWeather);
 
@@ -32,7 +32,7 @@ router.get('/getweather', auth, weatherCtrl.getAllWeather);
  *  post:
  *   tags:
  *    - weather
- *   description: This request set the cities for which the user wants the weather
+ *   description: This request set the cities for which the user wants the weather.
  *   responses:
  *    '200':
  *      description: Success
@@ -41,7 +41,8 @@ router.get('/getweather', auth, weatherCtrl.getAllWeather);
  *
  *   parameters:
  *    - in: body
- *      name: cities
+ *      description: "user: Token id of the user.\ncities: Array of cities that the user wants to follow. It could be only on city or as many as cities that the user wants."
+ *      name: citiesArray
  *      schema:
  *       type: object
  *       properties:
@@ -62,7 +63,7 @@ router.post('/setCities', auth, weatherCtrl.setCities);
 /**
  * @swagger
  * /weather/removeCities:
- *  post:
+ *  delete:
  *   tags:
  *    - weather
  *   description: This request set the cities for which the user wants the weather
@@ -74,6 +75,7 @@ router.post('/setCities', auth, weatherCtrl.setCities);
  *
  *   parameters:
  *    - in: body
+ *      description: "user: Token id of the user.\ncities: Array of cities that the user wants to unfollow. It could be only on city or as many as cities that the user wants."
  *      name: cities
  *      schema:
  *       type: object

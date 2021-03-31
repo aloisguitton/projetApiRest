@@ -26,10 +26,12 @@ exports.postCovid = (req, res) => {
         });
 }
 
-exports.delCovid = (req, res) => {
-    const id_user = userModel.retrieveId(req.query.usertoken);
-    const country = req.params.country;
+exports.delCovid = async (req, res) => {
+    const id_user = await userModel.retrieveId(req.user);
+    const country = req.body.country;
 
+    console.log(country)
+    console.log(id_user)
     covidModel.delete(country, id_user)
         .then(()=>{
             response.success(res);

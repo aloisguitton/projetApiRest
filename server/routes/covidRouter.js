@@ -99,6 +99,6 @@ router.get('/covidModules', auth, covidCtrl.getCovid);
  *      description: Validate module has removed
  *
  */
-router.delete('/covidModules/:usertoken/:country', auth, covidCtrl.delCovid);
+router.delete('/covidModules', auth, covidCtrl.delCovid);
 
 module.exports = router;

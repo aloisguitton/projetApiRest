@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start:server": "node Server/bin/www",
-    "start:client": "cd Client && react-scripts start"
+    "start": "node Server/bin/www"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",

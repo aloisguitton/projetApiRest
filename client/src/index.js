@@ -13,7 +13,7 @@ import {PersistGate} from 'redux-persist/integration/react'
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#ff7979',
+            main: '#5a7f6d',
         },
         secondary: {
             main: '#ff7724'

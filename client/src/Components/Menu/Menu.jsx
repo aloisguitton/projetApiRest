@@ -53,7 +53,7 @@ class Menu extends Component {
 
                         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end pl-3">
                             <Nav>
-                                {!isAuth ? <Link className="nav-link my-auto" to="/utilisateur/connexion">Se
+                                {!isAuth ? <Link className="nav-link my-auto" to="/connexion">Se
                                     connecter</Link> : <Link className="nav-link my-auto" onClick={() => {
                                     this.setState({expand: null});
                                     this.disconnect()

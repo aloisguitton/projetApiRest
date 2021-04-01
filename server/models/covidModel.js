@@ -32,11 +32,13 @@ exports.delete = (country, id_user) => {
 
 exports.getCovid19Values = (country) => {
     const date = new Date();
-    const fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate()-1);
+    const fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate());
+    console.log(country)
+    console.log(fulldate)
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
-            url: 'https://api.covid19api.com/live/country/'+country+'/status/confirmed/date/'+fulldate+'T00:00:00Z'
+            url: 'https://api.covid19api.com/live/country/'+country+'/status/confirmed/date/'+(new Date()).setDate((new Date()).getDate() - 1)
         };
 
         axios(config)
@@ -50,6 +52,7 @@ exports.getCovid19Values = (country) => {
 }
 
 exports.getUserModules = (id_user) => {
+    console.log("oaeziofjezoijfzeoijfoiezjfoiez")
     let modulesvalues = [];
 
     return new Promise((resolve, reject) => {
@@ -61,11 +64,10 @@ exports.getUserModules = (id_user) => {
                     let values = await this.getCovid19Values(country);
                     modulesvalues.push(values);
                 }
-
                 resolve(modulesvalues);
             })
             .catch((error)=>{
-                reject();
+                reject(error);
             })
     });
 }

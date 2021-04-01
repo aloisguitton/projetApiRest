@@ -1,11 +1,14 @@
 import axios from 'axios'
-
+import {store} from "../Store/store"
 const server = process.env.REACT_APP_SERVER
 
+const deconnect = () => {
+    const action = {type: "DISCONNECT", value: {}}
+    store.dispatch(action)
+}
 export const post = (url, data = {}) => {
     return new Promise((resolve, reject) => {
-        const user = JSON.parse((JSON.parse(localStorage['persist:root']))['authReducer'])
-        console.log(user)
+        const user = store.getState()['authReducer']
         const isLogged = user['loggedIn'] === true
         if(isLogged){
             if(data instanceof FormData){
@@ -30,6 +33,9 @@ export const post = (url, data = {}) => {
                 resolve(response)
             })
             .catch((e) => {
+                if(e.response.data.error === "Unauthorized: token expired"){
+                    deconnect()
+                }
                 reject(e.response.data)
             })
     })
@@ -39,9 +45,10 @@ export const get = (url, params = {}) => {
     return new Promise((resolve, reject) => {
         let user = {}
         try {
-            user = JSON.parse((JSON.parse(localStorage['persist:root']))['authReducer'])
+            user = store.getState()['authReducer']
         } catch (e) {}
         const isLogged = user['loggedIn'] === true
+
         if(isLogged){
             params["token"] = (user['user']).replaceAll("\"", "")
         }
@@ -59,6 +66,9 @@ export const get = (url, params = {}) => {
                 resolve(response)
             })
             .catch((e) => {
+                if(e.message === "Network error" || e.response.data.error === "Unauthorized: token expired"){
+                    deconnect()
+                }
                 reject(e.response.data)
             })
     })
@@ -66,7 +76,7 @@ export const get = (url, params = {}) => {
 
 export const del = (url, data) => {
     return new Promise((resolve, reject) => {
-        const user = JSON.parse((JSON.parse(localStorage['persist:root']))['authReducer'])
+        const user = store.getState()['authReducer']
         const isLogged = user['loggedIn'] === true
         if(isLogged){
             data["token"] = (user['user']).replaceAll("\"", "")
@@ -86,6 +96,9 @@ export const del = (url, data) => {
                 resolve(response)
             })
             .catch((e) => {
+                if(e.response.data.error === "Unauthorized: token expired"){
+                    deconnect()
+                }
                 reject(e.response.data)
             })
     })
@@ -93,7 +106,7 @@ export const del = (url, data) => {
 
 export const put = (url, data = {}) => {
     return new Promise((resolve, reject) => {
-        const user = JSON.parse((JSON.parse(localStorage['persist:root']))['authReducer'])
+        const user = store.getState()['authReducer']
         const isLogged = user['loggedIn'] === true
         if(isLogged){
             data["token"] = (user['user']).replaceAll("\"", "")
@@ -113,8 +126,10 @@ export const put = (url, data = {}) => {
                 resolve(response)
             })
             .catch((e) => {
-                console.log(e)
+                if(e.response.data.error === "Unauthorized: token expired"){
+                    deconnect()
+                }
                 reject(e.response.data)
             })
     })
-};
+}

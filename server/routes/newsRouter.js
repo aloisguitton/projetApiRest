@@ -20,13 +20,8 @@ const auth = require('../middleware/auth')
  *      description: An error occured
  *    '401':
  *      description: Unauthorized
- *
- *   parameters:
- *    - in: query
- *      name: user
- *      type: integer
- *      required: true
- *      description: "id user"
+ *   security:
+ *	   - bearerAuth: []
  */
 router.get('/bddapi', auth, newsCtrl.requestBddApi);
 /**
@@ -43,12 +38,8 @@ router.get('/bddapi', auth, newsCtrl.requestBddApi);
  *      description: An error occured
  *    '401':
  *      description: Unauthorized
- *
- *   parameters:
- *    - in: query
- *      name: user
- *      type: integer
- *      description: "id user"
+ *   security:
+ *	   - bearerAuth: []
  */
 router.get('/requetsoneuser', auth, newsCtrl.requetsOneUser);
 /**
@@ -67,24 +58,28 @@ router.get('/requetsoneuser', auth, newsCtrl.requetsOneUser);
  *      description: true
  *    '500':
  *      description: false
- *   parameters:
- *    - in: body
- *      name: category and country
+ *   requestBody:
+ *    content:
+ *     'application/json':
  *      schema:
  *       type: object
  *       required:
- *        - id_user
  *        - country
  *        - category
  *       properties:
- *        idUser:
- *         type: integer
- *        country:
- *         type: string
- *         example: fr
- *        category:
- *         type: string
- *         example: technology
+ *        news:
+ *         type: array
+ *         items:
+ *          type: object
+ *          properties:
+ *           country:
+ *            type: string
+ *            example: fr
+ *           category:
+ *            type: string
+ *            example: technology
+ *   security:
+ *	   - bearerAuth: []
  */
 router.post('/register', auth, newsCtrl.register);
 

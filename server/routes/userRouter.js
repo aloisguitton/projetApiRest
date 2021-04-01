@@ -14,37 +14,36 @@ const auth = require('../middleware/auth')
  *   responses:
  *    '200':
  *      description: Return all api users
- *
- *   parameters:
- *    - in: body
- *      name: user
- *      schema:
- *       type: object
- *       required:
- *        - firstname
- *        - lastname
- *        - password
- *        - email
- *        - address
- *        - city
- *        - zip
- *       properties:
- *        firstname:
- *         type: string
- *        lastname:
- *         type: string
- *        password:
- *         type: string
- *         example: "1a1dc91c907325c69271ddf0c944bc72"
- *        email:
- *         type: string
- *         example: "test@gmail.fr"
- *        address:
- *         type: string
- *        city:
- *         type: string
- *        zip:
- *         type: string
+ *   requestBody:
+ *    content:
+ *     'application/json':
+ *        schema:
+ *         type: object
+ *         required:
+ *          - firstname
+ *          - lastname
+ *          - password
+ *          - email
+ *          - address
+ *          - city
+ *          - zip
+ *         properties:
+ *          firstname:
+ *           type: string
+ *          lastname:
+ *           type: string
+ *          password:
+ *           type: string
+ *           example: "1a1dc91c907325c69271ddf0c944bc72"
+ *          email:
+ *           type: string
+ *           example: "test@gmail.fr"
+ *          address:
+ *           type: string
+ *          city:
+ *           type: string
+ *          zip:
+ *           type: string
  */
 router.post('/register', userCtrl.register)
 
@@ -63,9 +62,9 @@ router.post('/register', userCtrl.register)
  *    '401':
  *      description: Incorrect email or password
  *
- *   parameters:
- *    - in: body
- *      name: id
+ *   requestBody:
+ *    content:
+ *     'application/json':
  *      schema:
  *       type: object
  *       required:
@@ -87,7 +86,7 @@ router.post('/connect', userCtrl.connect)
  *  get:
  *   tags:
  *    - user
- *   description: Get all users
+ *   description: Get parameters
  *   responses:
  *    '200':
  *      description: Informations
@@ -95,16 +94,8 @@ router.post('/connect', userCtrl.connect)
  *      description: An error occured
  *    '401':
  *      description: Unauthorized
- *
- *   parameters:
- *    - in: query
- *      name: token
- *      type: string
- *      description: "token from connect route"
- *    - in: query
- *      name: userId
- *      type: string
- *      description: "userId from connect route"
+ *   security:
+ *	   - bearerAuth: []
  */
 router.get('/parameters', auth, userCtrl.parameters)
 

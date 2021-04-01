@@ -19,25 +19,14 @@ router.get('/allCountry', covidCtrl.getAllCountryCovid);
 
 /**
  * @swagger
- * /covidModuleRegister :
+ * /covid/covidModuleRegister :
  *  post:
  *   tags:
  *      - covid
  *   description: Register a user covid module
- *
- *   parameters:
- *     - in: headers
- *       name: User Token
- *       description: User token for authentication
- *       schema:
- *         required:
- *          - usertoken
- *         properties:
- *           usertoken:
- *             type: string
- *
- *     - in: body
- *       name : Country
+ *   requestBody:
+ *    content:
+ *     'application/json':
  *       description : Country for User covid module to register
  *       schema :
  *         required:
@@ -46,7 +35,8 @@ router.get('/allCountry', covidCtrl.getAllCountryCovid);
  *          country:
  *           type: string
  *           example: "france"
- *
+ *   security:
+ *	   - bearerAuth: []
  *   responses:
  *    '200':
  *      description: Validate that module has added
@@ -58,23 +48,13 @@ router.post('/covidModuleRegister', auth, covidCtrl.postCovid);
 
 /**
  * @swagger
- * /covidModules:
+ * /covid/covidModules:
  *  get:
  *   description: Get modules of the user
  *   tags:
  *      - covid
- *
- *   parameters:
- *     - in: headers
- *       name: User Token
- *       description: User token for authentication
- *       schema:
- *         required:
- *          - usertoken
- *         properties:
- *           usertoken:
- *             type: string
- *
+ *   security:
+ *	   - bearerAuth: []
  *   responses:
  *    '200':
  *      description: Return values to create user covid module
@@ -86,32 +66,24 @@ router.get('/covidModules', auth, covidCtrl.getCovid);
 
 /**
  * @swagger
- * /covidModulesDelete:
+ * /covid/covidModulesDelete:
  *  delete:
  *   description: Remove a user covid module
  *   tags:
  *      - covid
- *
- *   parameters:
- *     - in: headers
- *       name: User Token
- *       description: User token for authentication
- *       schema:
- *         required:
- *          - usertoken
- *         properties:
- *           usertoken:
- *             type: string
- *
- *     - in: body
- *       description : User module to delete
- *       required:
- *        - country
- *       properties:
- *        country:
- *         type: string
- *         example: "france"
- *
+ *   requestBody:
+ *    content:
+ *     'application/json':
+ *       description : Country for User covid module to register
+ *       schema :
+ *        required:
+ *         - country
+ *        properties:
+ *         country:
+ *          type: string
+ *          example: "france"
+ *   security:
+ *	   - bearerAuth: []
  *   responses:
  *    '200':
  *      description: Validate module has removed

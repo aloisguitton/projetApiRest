@@ -15,14 +15,8 @@ const auth = require('../middleware/auth')
  *      description: Returns the temperature of the cities the user wants to follow. The response formated in a json
  *    '500':
  *      description: An error occured
- *
- *   parameters:
- *    - in: query
- *      name: user
- *      description: Token id of the user
- *      schema:
- *       type: string
- *       example: "34578364586"
+ *   security:
+ *	   - bearerAuth: []
  */
 router.get('/getweather', auth, weatherCtrl.getAllWeather);
 
@@ -39,9 +33,10 @@ router.get('/getweather', auth, weatherCtrl.getAllWeather);
  *    '500':
  *      description: An error occured
  *
- *   parameters:
- *    - in: body
- *      description: "user: Token id of the user.\ncities: Array of cities that the user wants to follow. It could be only on city or as many as cities that the user wants."
+ *   requestBody:
+ *    content:
+ *     description: "user: Token id of the user.\ncities: Array of cities that the user wants to follow. It could be only on city or as many as cities that the user wants."
+ *     'application/json':
  *      name: citiesArray
  *      schema:
  *       type: object
@@ -57,6 +52,8 @@ router.get('/getweather', auth, weatherCtrl.getAllWeather);
  *           name:
  *            type: string
  *            example: "Bordeaux"
+ *   security:
+ *	   - bearerAuth: []
  */
 router.post('/setCities', auth, weatherCtrl.setCities);
 
@@ -73,16 +70,13 @@ router.post('/setCities', auth, weatherCtrl.setCities);
  *    '500':
  *      description: An error occured
  *
- *   parameters:
- *    - in: body
- *      description: "user: Token id of the user.\ncities: Array of cities that the user wants to unfollow. It could be only on city or as many as cities that the user wants."
+ *   requestBody:
+ *    content:
+ *     'application/json':
  *      name: cities
  *      schema:
  *       type: object
  *       properties:
- *        user:
- *         type: string
- *         example: "09867809857377678"
  *        cities:
  *         type: array
  *         items:
@@ -91,6 +85,8 @@ router.post('/setCities', auth, weatherCtrl.setCities);
  *           name:
  *            type: string
  *            example: "Bordeaux"
+ *   security:
+ *	   - bearerAuth: []
  */
 router.delete('/removeCities', auth, weatherCtrl.removeCity);
 

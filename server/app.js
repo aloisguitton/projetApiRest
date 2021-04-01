@@ -17,11 +17,27 @@ const swaggerJsDoc = require("swagger-jsdoc");
 
 const swaggerOptions = {
     swaggerDefinition: {
+        openapi: '3.0.1',
         info: {
             version: "1.0.0",
             title: "My super dashboards",
-            description: "Create some dashboard to understand your world !",
+            description: "Create some dashboard to understand your world ! To use private route, you have to connect you (with 'test@gmail.fr' and 'pass').",
             servers: ["http://localhost:3500"]
+        },
+        basePath: '/',
+        components: {
+            securitySchemes: {
+                "bearerAuth": {
+                    type: 'http',
+                    description: "sasir le token",
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+                "BasicAuth":{
+                    "type": "http,",
+                    "scheme":"basic"
+                }
+            }
         }
     },
     apis: ["routes/userRouter.js", "routes/covidRouter.js", "routes/newsRouter.js", "routes/weatherRouter.js"]

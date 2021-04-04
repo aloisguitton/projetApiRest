@@ -119,15 +119,18 @@ export class Home extends Component {
             get("news/requetsoneuser")
                 .then((res) => {
                     res.data.map((d) => {
+
                         if ((this.state.newsCountry.filter((e) => e.value === d.country)).length === 0) {
                             this.setState({
                                 newsCountry: [...this.state.newsCountry, this.state.optionNewsCountry.filter((e) => e.value === d.country)[0]]
                             })
                         }
                         if ((this.state.news.filter((e) => e.value === d.country)).length === 0) {
-                            this.setState({
-                                news: [...this.state.news, this.state.newsType.filter((e) => e.value === d.category)[0]]
-                            })
+                            if(this.state.news.filter((e) => e.value === d.category).length === 0){
+                                this.setState({
+                                    news: [...this.state.news, this.state.newsType.filter((e) => e.value === d.category)[0]]
+                                })
+                            }
                         }
                     })
                     resolve()
@@ -154,7 +157,19 @@ export class Home extends Component {
                 })
             })
         })
-        post("news/register", {news: news})
+
+        if(this.state.news.length === 0 && this.state.newsCountry.length === 0){
+            post("news/register", {news: news})
+                .then((res) => {
+                    this.refreshPage()
+                })
+        }
+        if(news.length > 0){
+            post("news/register", {news: news})
+                .then((res) => {
+                    this.refreshPage()
+                })
+        }
 
     }
 
@@ -243,7 +258,7 @@ export class Home extends Component {
                                 }}
                                 value={this.state.news}
                                 options={this.state.newsType}
-                                getOptionLabel={(option) => capitalize(option.name)}
+                                getOptionLabel={(option) => option.name}
                                 renderInput={(params) => <TextField {...params} label="Type de news"
                                                                     variant="outlined"/>}
                             />

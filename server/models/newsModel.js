@@ -10,7 +10,7 @@ exports.findAllUser = (userID) => {
                 resolve(res)
             })
             .catch((err) => {
-                console.log("passage par faux")
+
                 reject()
             })
     })
@@ -43,7 +43,7 @@ exports.delete = (userID) => {
                 resolve()
             })
             .catch(error => {
-                console.log(error)
+
                 reject()
             })
     });

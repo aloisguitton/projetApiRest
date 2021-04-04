@@ -97,17 +97,17 @@ this.User.sync().then(() => {
 
 // this.Covid.sync({ force: true }).then(() => {
 this.User.sync().then(() => {
-    console.log("Covid table created !")
+
 })
 
 // this.News.sync({ force: true }).then(() => {
 this.User.sync().then(() => {
   //  newsModel.register(1,"fr","technology");
-    console.log("News table created !")
+
 })
 
 // this.Weather.sync({ force: true }).then(() => {
 this.User.sync().then(() => {
     //weatherModel.createWeatherTable(1, "France","metric","fr","{json}");
-    console.log("Weather table created !")
+
 })

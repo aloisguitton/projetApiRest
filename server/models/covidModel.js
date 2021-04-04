@@ -33,8 +33,8 @@ exports.delete = (country, id_user) => {
 exports.getCovid19Values = (country) => {
     const date = new Date();
     const fulldate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+(date.getDate());
-    console.log(country)
-    console.log(fulldate)
+
+
     return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
@@ -52,7 +52,7 @@ exports.getCovid19Values = (country) => {
 }
 
 exports.getUserModules = (id_user) => {
-    console.log("oaeziofjezoijfzeoijfoiezjfoiez")
+
     let modulesvalues = [];
 
     return new Promise((resolve, reject) => {

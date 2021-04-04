@@ -10,7 +10,7 @@ const userRouter = require('./routes/userRouter');
 const covidRouter = require('./routes/covidRouter');
 const newsRouter = require('./routes/newsRouter');
 const weatherRouter = require('./routes/weatherRouter');
-
+const open = require('open');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -45,6 +45,8 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+open('http://localhost:3500/api-docs');
 
 app.use(logger('dev'));
 app.use(express.json());

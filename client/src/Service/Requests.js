@@ -33,7 +33,7 @@ export const post = (url, data = {}) => {
                 resolve(response)
             })
             .catch((e) => {
-                if(e.response.data.error === "Unauthorized: token expired"){
+                if(e.response.data.error === "Unauthorized: token error1" || e.response.data.error === "Unauthorized: token expired"){
                     deconnect()
                 }
                 reject(e.response.data)
@@ -66,9 +66,10 @@ export const get = (url, params = {}) => {
                 resolve(response)
             })
             .catch((e) => {
-                if(e.message === "Network error" || e.response.data.error === "Unauthorized: token expired"){
+                if(e.message === "Network error" || e.response.data.error === "Unauthorized: token error1" || e.response.data.error === "Unauthorized: token expired"){
                     deconnect()
                 }
+
                 reject(e.response.data)
             })
     })
@@ -96,7 +97,7 @@ export const del = (url, data) => {
                 resolve(response)
             })
             .catch((e) => {
-                if(e.response.data.error === "Unauthorized: token expired"){
+                if(e.response.data.error === "Unauthorized: token error1" || e.response.data.error === "Unauthorized: token expired"){
                     deconnect()
                 }
                 reject(e.response.data)
@@ -126,7 +127,7 @@ export const put = (url, data = {}) => {
                 resolve(response)
             })
             .catch((e) => {
-                if(e.response.data.error === "Unauthorized: token expired"){
+                if(e.response.data.error === "Unauthorized: token error1" || e.response.data.error === "Unauthorized: token expired"){
                     deconnect()
                 }
                 reject(e.response.data)

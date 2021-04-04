@@ -3,7 +3,7 @@ const db = require('../models/db');
 const axios = require('axios');
 
 exports.getCities = (userID) => {
-    console.log(userID)
+
     return new Promise((resolve, reject) => {
         db.Weather.findAll({
             attributes: ['city_name'],

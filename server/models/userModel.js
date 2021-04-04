@@ -107,7 +107,7 @@ exports.weatherParameters = (user) => {
 }
 
 exports.covidParameters = (user) => {
-    console.log(user)
+
     return new Promise((resolve, reject) => {
         Covid.findAll({
             attributes: [

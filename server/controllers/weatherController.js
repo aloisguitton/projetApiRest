@@ -8,6 +8,7 @@ const APIKEY="e86938918e03ffa152e26008befa7ebd";
 exports.getAllWeather = async (req, res) => {
     weatherModel.getCities(await userModel.retrieveId(req.user))
         .then(function(cities) {
+            console.log(cities)
             weatherModel.getUserModules(cities,APIKEY).then(result =>{
                 response.success(res, result);
             })

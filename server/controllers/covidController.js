@@ -34,17 +34,17 @@ exports.delCovid = async (req, res) => {
             response.success(res);
         })
         .catch((d)=>{
-            console.log("_-------___-----")
-            console.log(d)
+
+
             response.error(res);
         })
 }
 
 exports.getCovid = async (req, res) => {
-    console.log("req.user")
-    console.log(req.user)
+
+
     const id_user = await userModel.retrieveId(req.user);
-    console.log(id_user)
+
     covidModel.getUserModules(id_user)
         .then( modulesvalues => {
             response.success(res, {message: modulesvalues})
